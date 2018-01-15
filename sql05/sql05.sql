@@ -37,7 +37,7 @@ where department_id in (select department_id
                                group by department_id)) b
                          where a.dept_avg = b.max_dept_avg);
 
---문제4....음.......;.
+--문제4....음.......;못함
 
 
 --문제5
