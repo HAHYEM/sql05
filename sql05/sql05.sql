@@ -37,8 +37,24 @@ where department_id in (select department_id
                                group by department_id)) b
                          where a.dept_avg = b.max_dept_avg);
 
---문제4....음.......;못함
-
+--문제4....음.......;
+select region_name
+from (select r.region_name, avg(e.salary) reg_avg
+      from employees e, departments d, locations l, countries c, regions r
+      where e.department_id = d.department_id
+            and d.location_id = l.location_id
+            and l.country_id = c.country_id
+            and c.region_id = r.region_id
+      group by r.region_name) a,  
+     (select max(reg_avg) max_avg
+      from (select r.region_name, avg(e.salary) reg_avg
+            from employees e, departments d, locations l, countries c, regions r
+            where e.department_id = d.department_id
+                  and d.location_id = l.location_id
+                  and l.country_id = c.country_id
+                  and c.region_id = r.region_id
+            group by r.region_name)) b
+where a.reg_avg = b.max_avg;
 
 --문제5
 select j.job_title
